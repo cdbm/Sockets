@@ -4,18 +4,22 @@ import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.ConnectException;
+import java.util.Scanner;
 
 public class Cliente {
 
 	public static void main(String[] args) {
-		int port = 3001;
+		Scanner in = new Scanner(System.in);
+		int port = 2020;
 		String address = "localhost";
 		
 		try {
 			Socket socket = new Socket(address, port);
 			DataOutputStream saida = new DataOutputStream(socket.getOutputStream());
-			saida.write(15);
-			
+			while(in.hasNext()) {
+			String ler = in.nextLine();
+			saida.writeUTF(ler);	
+			}
 			socket.close();
 		}catch(ConnectException e){
 			System.out.println("Não foi possível chegar ao destino");
@@ -26,5 +30,4 @@ public class Cliente {
 	}
 
 }
-
 
